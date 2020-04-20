@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>4.4</version>
+    <date>2020-04-20T11:42:35Z</date>
+    <groups>
+        <group>
+            <name>Price Tracker</name>
+        </group>
+    </groups>
+    <hosts>
+        <host>
+            <host>Zwilling Knife Block</host>
+            <name>Zwilling Knife Block</name>
+            <templates>
+                <template>
+                    <name>Zwilling Price Monitor</name>
+                </template>
+            </templates>
+            <groups>
+                <group>
+                    <name>Price Tracker</name>
+                </group>
+            </groups>
+            <interfaces>
+                <interface>
+                    <interface_ref>if1</interface_ref>
+                </interface>
+            </interfaces>
+            <macros>
+                <macro>
+                    <macro>{$URL}</macro>
+                    <value>https://uk.zwilling-shop.com/Kitchen-World/Kitchen-Knives/Knife-accessories/Knife-blocks-empty/Knife-block-bamboo-magnet-Zwilling-35046-110-0.html</value>
+                </macro>
+            </macros>
+            <inventory>
+                <url_a>https://uk.zwilling-shop.com/Kitchen-World/Kitchen-Knives/Knife-accessories/Knife-blocks-empty/Knife-block-bamboo-magnet-Zwilling-35046-110-0.html</url_a>
+            </inventory>
+        </host>
+    </hosts>
+    <triggers>
+        <trigger>
+            <expression>{Zwilling Knife Block:price_checker.py[{$URL},availability].abschange()}&lt;&gt;0</expression>
+            <name>Availability Change</name>
+            <priority>INFO</priority>
+        </trigger>
+        <trigger>
+            <expression>{Zwilling Knife Block:price_checker.py[{$URL},price].abschange()}&lt;&gt;0</expression>
+            <name>Price Change</name>
+            <priority>INFO</priority>
+        </trigger>
+    </triggers>
+</zabbix_export>
