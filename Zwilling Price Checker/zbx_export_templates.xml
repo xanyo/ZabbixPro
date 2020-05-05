@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>4.4</version>
+    <date>2020-05-05T11:55:18Z</date>
+    <groups>
+        <group>
+            <name>Zwilling</name>
+        </group>
+    </groups>
+    <templates>
+        <template>
+            <template>Zwilling Price Monitor</template>
+            <name>Zwilling Price Monitor</name>
+            <groups>
+                <group>
+                    <name>Zwilling</name>
+                </group>
+            </groups>
+            <items>
+                <item>
+                    <name>Availability</name>
+                    <type>EXTERNAL</type>
+                    <key>price_checker.py[{$URL},availability]</key>
+                    <delay>6h</delay>
+                    <history>1d</history>
+                    <trends>3650d</trends>
+                    <valuemap>
+                        <name>Availability</name>
+                    </valuemap>
+                </item>
+                <item>
+                    <name>Price</name>
+                    <type>EXTERNAL</type>
+                    <key>price_checker.py[{$URL},price]</key>
+                    <delay>6h</delay>
+                    <history>1d</history>
+                    <trends>3650d</trends>
+                    <value_type>FLOAT</value_type>
+                    <units>£</units>
+                </item>
+            </items>
+        </template>
+    </templates>
+    <graphs>
+        <graph>
+            <name>Availability &amp; Price</name>
+            <graph_items>
+                <graph_item>
+                    <color>00FF00</color>
+                    <item>
+                        <host>Zwilling Price Monitor</host>
+                        <key>price_checker.py[{$URL},price]</key>
+                    </item>
+                </graph_item>
+                <graph_item>
+                    <sortorder>1</sortorder>
+                    <color>0040FF</color>
+                    <item>
+                        <host>Zwilling Price Monitor</host>
+                        <key>price_checker.py[{$URL},availability]</key>
+                    </item>
+                </graph_item>
+            </graph_items>
+        </graph>
+    </graphs>
+    <value_maps>
+        <value_map>
+            <name>Availability</name>
+            <mappings>
+                <mapping>
+                    <value>0</value>
+                    <newvalue>Out Of Stock</newvalue>
+                </mapping>
+                <mapping>
+                    <value>1</value>
+                    <newvalue>In Stock</newvalue>
+                </mapping>
+            </mappings>
+        </value_map>
+    </value_maps>
+</zabbix_export>
